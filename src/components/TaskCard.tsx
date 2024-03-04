@@ -2,13 +2,11 @@ import { Issue } from "../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-
 interface Props {
-  task: Issue;
+  issue: Issue;
 }
 
-function TaskCard({ task }: Props) {
-
+function TaskCard({ issue }: Props) {
   const {
     setNodeRef,
     attributes,
@@ -17,10 +15,10 @@ function TaskCard({ task }: Props) {
     transition,
     isDragging,
   } = useSortable({
-    id: task.id,
+    id: issue.id,
     data: {
-      type: "Task",
-      task,
+      type: "Issue",
+      issue,
     },
   });
 
@@ -70,7 +68,7 @@ function TaskCard({ task }: Props) {
           text-ellipsis
         "
       >
-        {task.title}
+        {issue.title}
       </h2>
       <p className="
           my-auto 
@@ -80,10 +78,10 @@ function TaskCard({ task }: Props) {
           whitespace-pre-wrap
         "
       >
-        {task.number} 
+        Number: {issue.number}
       </p>
       <p>
-        {task.user} | comments: {task.comments}
+        User: {issue.user.login} | Comments: {issue.comments}
       </p>
     </div>
   );
