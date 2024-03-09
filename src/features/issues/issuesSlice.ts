@@ -18,15 +18,17 @@ const initialState: IssuesState = {
 const fetchIssues = createAsyncThunk('issues/fetchIssues', async (url: string) => {
   try {
     const response = await axios.get(url);
+
+  
     return response.data.map((issue: Issue) => {
       return {
         id: issue.id, 
-        columnId: issue.state === 'open' ? 'todo' : 'done', 
         number: issue.number,
         title: issue.title, 
         user: issue.user.login,
         comments: issue.comments,
-        state: issue.state
+        state: issue.state,
+        columnId: issue.state === 'open' ? 'todo' : 'done',
       }
     });
   } catch (error) {
@@ -54,4 +56,3 @@ const issuesSlice = createSlice({
 
 export {fetchIssues};
 export default issuesSlice.reducer;
-

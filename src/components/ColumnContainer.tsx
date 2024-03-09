@@ -1,18 +1,18 @@
 
 import { Column, Issue } from '../types';
 import TaskCard from './TaskCard';
-import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 interface Props {
   column: Column;
-  tasks: Issue[];
+  issues: Issue[];
 }
 
 function ColumnContainer(props: Props) {
-  const { column, tasks } = props;
+  const { column, issues } = props;
 
-  const tasksIds = tasks.map((task) => task.id);
+  const tasksIds = issues.map((issue) => issue.id);
 
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
     id: column.id,
@@ -101,9 +101,9 @@ function ColumnContainer(props: Props) {
       </div>
 
       <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
-        <SortableContext items={tasksIds} strategy={verticalListSortingStrategy}>
-          {tasks.map((task) => (
-            <TaskCard key={task.id} issue={task} />
+        <SortableContext items={tasksIds}>
+          {issues.map((issue) => (
+            <TaskCard key={issue.id} issue={issue} />
           ))}
         </SortableContext>
       </div>
